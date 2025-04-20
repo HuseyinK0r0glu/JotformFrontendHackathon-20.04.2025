@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
 import { authFetch } from "../service/ApiClient";
 import { useNavigate } from "react-router-dom";
+import { Context as ProductsContext } from "../context/ProductContext";
 
 const DashBoardPage = () => {
+    
+    const {state,setContextProducts} = useContext(ProductsContext);
 
     const navigate = useNavigate(); 
 
@@ -21,40 +24,67 @@ const DashBoardPage = () => {
                     method : "GET",
                 });
                 setProducts(data.content.products);
+                setContextProducts(data.content.products);
+                localStorage.setItem('products', JSON.stringify(data.content.products));
                 console.log(data);
             }catch(error){
                 setError(error.message || "Failed to fetch the user data");
             }
         }
 
-        makeApiCall();
+        const storedProducts = localStorage.getItem('products');
+        if(storedProducts){
+            setProducts(JSON.parse(storedProducts)); 
+            setContextProducts(JSON.parse(storedProducts));
+        }else {
+            makeApiCall();
+        }
+
+        // if (!state.products) {
+        //     const storedProducts = localStorage.getItem('products');
+        //     if (storedProducts) {
+        //         setProducts(JSON.parse(storedProducts)); 
+        //         setContextProducts(JSON.parse(storedProducts));
+        //     } else {
+        //         makeApiCall();
+        //     }
+        // }
 
     },[]);
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-4">
             {products ? (
                 <div>
-                    <h2 className="mb-4">Our Products</h2>
+                    <h4 className="mb-3">Our Products</h4>
                     {error && <div className="alert alert-danger">{error}</div>}
                     <div className="row">
                         {products.map((product, index) => (
-                            <div className="col-md-4 mb-4" key={index}>
-                                <div className="card h-100 shadow-sm">
+                            <div className="col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+                                <div className="card h-100 shadow-sm p-2">
                                     {product.images && (
                                         <img
                                             src={JSON.parse(product.images)[0]}
-                                            className="card-img-top"
+                                            className="card-img-top rounded"
                                             alt={product.name}
-                                            style={{ height: "200px", objectFit: "cover" }}
+                                            style={{ height: "140px", objectFit: "cover" }}
                                         />
                                     )}
-                                    <div className="card-body d-flex flex-column">
-                                        <h5 className="card-title">{product.name}</h5>
-                                        <p className="card-text">{product.description}</p>
-                                        <div className="mt-auto">
-                                            <h6 className="text-primary">${product.price}</h6>
-                                            <button className="btn btn-outline-primary btn-sm mt-2" onClick={() => {navigate(`/product?id=${product.pid}`)}}>Review</button>
+                                    <div className="card-body p-2 d-flex flex-column">
+                                        <h6 className="card-title mb-1 text-truncate">{product.name}</h6>
+                                        <p className="card-text text-muted small" style={{ fontSize: "0.75rem", lineHeight: "1rem" }}>
+                                            {product.description?.slice(0, 50)}...
+                                        </p>
+                                        <div className="mt-auto d-flex justify-content-between align-items-center">
+                                            <span className="text-primary fw-semibold" style={{ fontSize: "0.85rem" }}>
+                                                ${product.price}
+                                            </span>
+                                            <button
+                                                className="btn btn-sm btn-outline-primary"
+                                                onClick={() => navigate(`/product?id=${product.pid}`)}
+                                            >
+                                                Review
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -63,9 +93,7 @@ const DashBoardPage = () => {
                     </div>
                 </div>
             ) : (
-                <div>
-                    <p>Loading...</p>
-                </div>
+                <div>Loading products...</div>
             )}
         </div>
     );
