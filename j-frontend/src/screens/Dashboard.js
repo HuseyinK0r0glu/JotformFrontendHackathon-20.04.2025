@@ -10,6 +10,8 @@ const DashBoardPage = () => {
 
     const {state : cart , AddToCart} = useContext(CartContext);
 
+    const [sortOption,setSortOption] = useState("name-asc");
+
     const navigate = useNavigate(); 
 
     const[products,setProducts] = useState(null);
@@ -30,6 +32,32 @@ const DashBoardPage = () => {
           setFilteredProducts(newFilteredProducts);
         }
       }, [searchQuery, products]); 
+
+    const handleSortChange = (e) => {
+    const sortType = e.target.value;
+    setSortOption(sortType);
+
+    let sortedProducts;
+    switch (sortType) {
+        case "name-asc":
+        sortedProducts = [...filteredProducts].sort((a, b) => a.name.localeCompare(b.name));
+        break;
+        case "name-desc":
+        sortedProducts = [...filteredProducts].sort((a, b) => b.name.localeCompare(a.name));
+        break;
+        case "price-asc":
+        sortedProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
+        break;
+        case "price-desc":
+        sortedProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
+        break;
+        default:
+        sortedProducts = [...filteredProducts];
+        break;
+    }
+
+    setFilteredProducts(sortedProducts);
+    };
 
     useEffect(() => {
 
@@ -67,16 +95,34 @@ const DashBoardPage = () => {
     };
 
     return (
-        <div className="container mt-4">
-            <div className="col-12 mb-4">
-            <input
-                type="text"
-                className="form-control"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-            />
+        <div className="container mt-5">
+            <div className="row mb-4">
+                {/* Search Input */}
+                <div className="col-12 col-md-6 mb-3 mb-md-0">
+                <input
+                    type="text"
+                    className="form-control form-control-sm shadow-sm"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                />
+                </div>
+
+                {/* Sorting Dropdown */}
+                <div className="col-12 col-md-6">
+                <select
+                    className="form-select form-select-sm shadow-sm"
+                    value={sortOption}
+                    onChange={handleSortChange}
+                >
+                    <option value="name-asc">Sort by Name (A-Z)</option>
+                    <option value="name-desc">Sort by Name (Z-A)</option>
+                    <option value="price-asc">Sort by Price (Low to High)</option>
+                    <option value="price-desc">Sort by Price (High to Low)</option>
+                </select>
             </div>
+        </div>
+
             {filteredProducts ? (
                 <div>
                     <h4 className="mb-3">Products</h4>
