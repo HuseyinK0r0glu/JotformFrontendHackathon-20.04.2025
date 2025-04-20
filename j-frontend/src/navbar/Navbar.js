@@ -34,7 +34,7 @@ export const Navbar = () => {
                 <NavLink className="btn btn-outline-light" to="/profile">Profile</NavLink>
             </li>
             <li className="nav-item m-1">
-                <NavLink className="btn btn-outline-light" to="/shopping_car">Shopping Cart</NavLink>
+                <NavLink className="btn btn-outline-light" to="/shopping_cart">Shopping Cart</NavLink>
             </li>
 
             

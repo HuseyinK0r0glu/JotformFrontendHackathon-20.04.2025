@@ -1,4 +1,3 @@
-import { act } from "react";
 import CreateContext from "./CreateContext";
 
 const productReducer = (state,action) => {

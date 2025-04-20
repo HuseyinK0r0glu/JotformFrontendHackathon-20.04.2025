@@ -20,7 +20,6 @@ const ProductPage = () => {
         }
     },[]);
 
-
     // show the properties of the product with the given id
 
     const product = state.products?.find((prod) => prod.pid === id);

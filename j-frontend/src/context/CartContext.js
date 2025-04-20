@@ -31,10 +31,6 @@ const CartReducer = (state,action) => {
 
             return {...state,cartItems : updatedCart,count: updatedCart.reduce((sum, item) => sum + item.quantity, 0)}
             
-        case "REMOVE_FROM_CART":
-            
-        case "CLEAR_CART":
-
         default : 
             return state;
     }
@@ -56,7 +52,7 @@ const RemoveFromCart = (dispatch) => {
 const ClearCart = (dispatch) => {
     return () => {
         dispatch({type : "CLEAR_CART"});
-    }
+    };
 };
 
 export const {Context , Provider} = CreateContext(CartReducer , {AddToCart , RemoveFromCart , ClearCart},initialState);
