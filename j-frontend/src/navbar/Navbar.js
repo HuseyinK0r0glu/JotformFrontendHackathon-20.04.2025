@@ -28,7 +28,9 @@ export const Navbar = () => {
           <ul className="navbar-nav ms-auto">
           
             <li className="nav-item m-1">
-                <NavLink className="btn btn-outline-light" to="/shopping_cart">Shopping Cart</NavLink>
+            <NavLink className="btn btn-outline-light" to="/shopping_cart">
+                <i className="fas fa-shopping-cart me-2"></i> Shopping Cart
+            </NavLink>
             </li>
             
           </ul>

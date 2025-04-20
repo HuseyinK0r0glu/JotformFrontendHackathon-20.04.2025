@@ -15,6 +15,22 @@ const DashBoardPage = () => {
     const[products,setProducts] = useState(null);
     const[error,setError] = useState(null);
 
+    const [searchQuery , setSearchQuery] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState();
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    }
+    
+    useEffect(() => {
+        if (products) {
+          const newFilteredProducts = products.filter((product) =>
+            product.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+          setFilteredProducts(newFilteredProducts);
+        }
+      }, [searchQuery, products]); 
+
     useEffect(() => {
 
         // make an api call to get the user info 
@@ -52,12 +68,21 @@ const DashBoardPage = () => {
 
     return (
         <div className="container mt-4">
-            {products ? (
+            <div className="col-12 mb-4">
+            <input
+                type="text"
+                className="form-control"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+            />
+            </div>
+            {filteredProducts ? (
                 <div>
                     <h4 className="mb-3">Products</h4>
                     {error && <div className="alert alert-danger">{error}</div>}
                     <div className="row">
-                        {products.map((product, index) => (
+                        {filteredProducts.map((product, index) => (
                             <div className="col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
                             <div className="card h-100 shadow-sm p-2">
 

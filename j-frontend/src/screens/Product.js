@@ -30,33 +30,39 @@ const ProductPage = () => {
 
     return (
         <div
-                className="d-flex justify-content-center align-items-center"
-                style={{ minHeight: "100vh", paddingTop: "40px", paddingBottom: "40px" }}
-            >
-                <div className="container" style={{ maxWidth: "500px" }}>
-                    <div className="card shadow-sm p-3">
-                        {product.images && (
-                            <img
-                                src={JSON.parse(product.images)[0]}
-                                className="card-img-top rounded"
-                                alt={product.name}
-                                style={{ height: "250px", objectFit: "cover" }}
-                            />
-                        )}
-                        <div className="card-body">
-                            <h4 className="card-title mb-2">{product.name}</h4>
-                            <h6 className="text-primary mb-3">${product.price}</h6>
-                            <p
-                                className="card-text"
-                                style={{ fontSize: "0.95rem", lineHeight: "1.5" }}
-                            >
-                                {product.description}
-                            </p>
-                            <button className="btn btn-primary mt-3">Add to Cart</button>
-                        </div>
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: "100vh", paddingTop: "40px", paddingBottom: "40px" }}
+        >
+            <div className="container" style={{ maxWidth: "500px" }}>
+                <div className="card shadow-sm p-3">
+                    {product.images && (
+                        <img
+                            src={JSON.parse(product.images)[0]}
+                            className="card-img-top rounded"
+                            alt={product.name}
+                            style={{
+                                height: "150px",  
+                                width: "100%",    
+                                objectFit: "contain", 
+                                objectPosition: "center", 
+                                borderRadius: "10px",  
+                            }}
+                        />
+                    )}
+                    <div className="card-body">
+                        <h4 className="card-title mb-2">{product.name}</h4>
+                        <h6 className="text-primary mb-3">${product.price}</h6>
+                        <p
+                            className="card-text"
+                            style={{ fontSize: "0.95rem", lineHeight: "1.5" }}
+                        >
+                            {product.description}
+                        </p>
+                        <button className="btn btn-primary mt-3">Add to Cart</button>
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
 
