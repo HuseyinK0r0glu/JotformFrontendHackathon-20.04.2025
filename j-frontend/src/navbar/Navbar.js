@@ -1,10 +1,7 @@
 import { useContext , useEffect} from "react";
 import { NavLink } from "react-router-dom";
-import { Context as ProductsContext } from "../context/ProductContext";
 
 export const Navbar = () => {
-
-  const {state} = useContext(ProductsContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark py-3" style={{ backgroundColor: "#2c3e50" }}>
@@ -24,19 +21,15 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/dashboard" style={{ color: "#f8f9fa" }}>Dashboard</NavLink>
+              <NavLink className="nav-link" to="/dashboard" style={{ color: "#f8f9fa" }}>Home</NavLink>
             </li>
           </ul>
 
           <ul className="navbar-nav ms-auto">
-
-            <li className="nav-item m-1">
-                <NavLink className="btn btn-outline-light" to="/profile">Profile</NavLink>
-            </li>
+          
             <li className="nav-item m-1">
                 <NavLink className="btn btn-outline-light" to="/shopping_cart">Shopping Cart</NavLink>
             </li>
-
             
           </ul>
         </div>

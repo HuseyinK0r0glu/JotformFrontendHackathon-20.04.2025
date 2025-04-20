@@ -54,7 +54,7 @@ const DashBoardPage = () => {
         <div className="container mt-4">
             {products ? (
                 <div>
-                    <h4 className="mb-3">Our Products</h4>
+                    <h4 className="mb-3">Products</h4>
                     {error && <div className="alert alert-danger">{error}</div>}
                     <div className="row">
                         {products.map((product, index) => (
@@ -70,7 +70,13 @@ const DashBoardPage = () => {
                                             src={JSON.parse(product.images)[0]}
                                             className="card-img-top rounded"
                                             alt={product.name}
-                                            style={{ height: "140px", objectFit: "cover" }}
+                                            style={{
+                                                height: "150px",  
+                                                width: "100%",    
+                                                objectFit: "contain", 
+                                                objectPosition: "center", 
+                                                borderRadius: "10px",  
+                                            }}
                                         />
                                     )}
                                     <div className="card-body p-2 d-flex flex-column">

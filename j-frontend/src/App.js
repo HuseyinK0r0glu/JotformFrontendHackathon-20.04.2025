@@ -8,8 +8,8 @@ import { Provider as CartProvider } from './context/CartContext';
 
 import DashBoardPage from './screens/Dashboard';
 import ProductPage from './screens/Product';
-import ProfilePage from './screens/Profile';
 import ShoppingCartPage from './screens/ShoppingCart';
+import CheckoutPage from './screens/Checkout';
 
 import { Navbar } from './navbar/Navbar';
 
@@ -24,8 +24,8 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<DashBoardPage />} />
             <Route path='/product' element={<ProductPage /> } />
-            <Route path='/profile' element={<ProfilePage /> } />
             <Route path='/shopping_cart' element={<ShoppingCartPage /> } />
+            <Route path='/checkout' element={<CheckoutPage />} />
           </Routes>
         </Router>
       </ProductProvider>
